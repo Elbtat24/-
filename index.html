@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جدول متابعة الطلاب - حاسبات ومعلومات كفر الشيخ</title>
+    <title>اسامي طلاب الفرقة الاولي اصحاب مشاكل امتحانات الميد</title>
     <style>
         * {
             margin: 0;
@@ -164,7 +164,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>جدول متابعة الطلاب - دفعة سنة أولى</h1>
+            <h1>اسامي طلاب الفرقة الاولي اصحاب مشاكل امتحانات الميد</h1>
             <p>قسم الحاسبات والمعلومات - كلية كفر الشيخ</p>
         </div>
         
@@ -184,18 +184,16 @@
                     </tr>
                 </thead>
                 <tbody id="students-table">
-                    <!-- سيتم ملء الجدول بالبيانات عبر JavaScript -->
                 </tbody>
             </table>
         </div>
         
         <div class="footer">
-            تم إنشاء الجدول بواسطة طلاب الدفعة - كلية الحاسبات والمعلومات بكفر الشيخ
+           BY ENG-MOHAMED ELBTAT
         </div>
     </div>
 
     <script>
-        // بيانات الطلاب
         const students = [
             { name: "ابراهيم اسعد العزازي محمد", it: true, law: false },
             { name: "ابراهيم محمد ابراهيم", it: true, law: false },
@@ -262,10 +260,8 @@
             { name: "يسرا سمير", it: true, law: false }
         ];
 
-        // ترتيب الطلاب أبجدياً
         students.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
 
-        // تعبئة الجدول بالبيانات
         const tableBody = document.getElementById('students-table');
         
         students.forEach(student => {
