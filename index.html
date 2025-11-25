@@ -46,17 +46,51 @@
             opacity: 0.9;
         }
         
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .search-container label {
+            margin-left: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .search-container input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.2);
+        }
+        
         .table-container {
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             margin-bottom: 30px;
+            overflow-x: auto;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 600px;
         }
         
         thead {
@@ -142,21 +176,66 @@
             opacity: 0.8;
         }
         
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+        
         @media (max-width: 768px) {
-            .table-container {
-                overflow-x: auto;
+            .header h1 {
+                font-size: 1.8rem;
             }
             
-            table {
-                min-width: 700px;
+            .search-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-container label {
+                margin-bottom: 8px;
+                margin-left: 0;
+            }
+            
+            .search-container input {
+                width: 100%;
             }
             
             th, td {
                 padding: 12px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .professor {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 15px;
             }
             
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .search-container {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 10px 6px;
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -166,6 +245,11 @@
         <div class="header">
             <h1>اسامي طلاب الفرقة الاولي اصحاب مشاكل امتحانات الميد</h1>
             <p>قسم الحاسبات والمعلومات - كلية كفر الشيخ</p>
+        </div>
+        
+        <div class="search-container">
+            <label for="search-input">بحث عن اسم الطالب:</label>
+            <input type="text" id="search-input" placeholder="اكتب اسم الطالب للبحث...">
         </div>
         
         <div class="table-container">
@@ -262,34 +346,73 @@
         ];
 
         students.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
-
-        const tableBody = document.getElementById('students-table');
         
-        students.forEach(student => {
-            const row = document.createElement('tr');
+        const tableBody = document.getElementById('students-table');
+        const searchInput = document.getElementById('search-input');
+        
+        function displayStudents(studentList) {
+            tableBody.innerHTML = '';
             
-            const nameCell = document.createElement('td');
-            nameCell.className = 'name-col';
-            nameCell.textContent = student.name;
-            
-            const itCell = document.createElement('td');
-            itCell.className = 'it-col';
-            if (student.it) {
-                itCell.innerHTML = '<span class="checkmark">✓</span>';
+            if (studentList.length === 0) {
+                const noResultsRow = document.createElement('tr');
+                const noResultsCell = document.createElement('td');
+                noResultsCell.colSpan = 3;
+                noResultsCell.className = 'no-results';
+                noResultsCell.textContent = 'لا توجد نتائج للبحث';
+                noResultsRow.appendChild(noResultsCell);
+                tableBody.appendChild(noResultsRow);
+                return;
             }
             
-            const lawCell = document.createElement('td');
-            lawCell.className = 'law-col';
-            if (student.law) {
-                lawCell.innerHTML = '<span class="checkmark">✓</span>';
+            studentList.forEach(student => {
+                const row = document.createElement('tr');
+                
+                const nameCell = document.createElement('td');
+                nameCell.className = 'name-col';
+                nameCell.textContent = student.name;
+                
+                const itCell = document.createElement('td');
+                itCell.className = 'it-col';
+                if (student.it) {
+                    itCell.innerHTML = '<span class="checkmark">✓</span>';
+                }
+                
+                const lawCell = document.createElement('td');
+                lawCell.className = 'law-col';
+                if (student.law) {
+                    lawCell.innerHTML = '<span class="checkmark">✓</span>';
+                }
+                
+                row.appendChild(nameCell);
+                row.appendChild(itCell);
+                row.appendChild(lawCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function searchStudents() {
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm === '') {
+                displayStudents(students);
+                return;
             }
             
-            row.appendChild(nameCell);
-            row.appendChild(itCell);
-            row.appendChild(lawCell);
+            const filteredStudents = students.filter(student => 
+                student.name.includes(searchTerm)
+            );
             
-            tableBody.appendChild(row);
-        });
+            if (filteredStudents.length > 3) {
+                displayStudents(filteredStudents.slice(0, 3));
+            } else {
+                displayStudents(filteredStudents);
+            }
+        }
+        
+        searchInput.addEventListener('input', searchStudents);
+        
+        displayStudents(students);
     </script>
 </body>
 </html>
