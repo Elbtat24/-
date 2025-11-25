@@ -183,6 +183,15 @@
             font-style: italic;
         }
         
+        .results-count {
+            text-align: right;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 500;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
@@ -253,6 +262,7 @@
         </div>
         
         <div class="table-container">
+            <div class="results-count" id="results-count">عرض جميع الطلاب</div>
             <table>
                 <thead>
                     <tr>
@@ -349,7 +359,8 @@
         
         const tableBody = document.getElementById('students-table');
         const searchInput = document.getElementById('search-input');
-        
+        const resultsCount = document.getElementById('results-count');
+
         function displayStudents(studentList) {
             tableBody.innerHTML = '';
             
@@ -361,6 +372,7 @@
                 noResultsCell.textContent = 'لا توجد نتائج للبحث';
                 noResultsRow.appendChild(noResultsCell);
                 tableBody.appendChild(noResultsRow);
+                resultsCount.textContent = 'لا توجد نتائج';
                 return;
             }
             
@@ -389,6 +401,12 @@
                 
                 tableBody.appendChild(row);
             });
+            
+            if (studentList.length === students.length) {
+                resultsCount.textContent = `عرض جميع الطلاب (${students.length})`;
+            } else {
+                resultsCount.textContent = `نتائج البحث (${studentList.length} طالب)`;
+            }
         }
         
         function searchStudents() {
@@ -403,11 +421,7 @@
                 student.name.includes(searchTerm)
             );
             
-            if (filteredStudents.length > 3) {
-                displayStudents(filteredStudents.slice(0, 3));
-            } else {
-                displayStudents(filteredStudents);
-            }
+            displayStudents(filteredStudents);
         }
         
         searchInput.addEventListener('input', searchStudents);
