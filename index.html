@@ -367,6 +367,7 @@
 
     <script>
         const students = [
+            // الطلاب الأصليون
             { name: "ابراهيم اسعد العزازي محمد", it: true, law: false },
             { name: "ابراهيم محمد ابراهيم", it: true, law: false },
             { name: "احمد ابراهيم توفيق محمد", it: false, law: true },
@@ -387,8 +388,6 @@
             { name: "حليمة نجاح فوزي الوصيف", it: true, law: false },
             { name: "جني محمود محمد عبدالله", it: true, law: false },
             { name: "الزهراء محمد بدر الباز", it: true, law: false },
-            { name: "محمد سعيد عبد المنصف شعوط", it: true, law: false },
-            { name: "محمد سعيد عبد المنصف شعوط", it: true, law: false },
             { name: "محمد علي محمد", it: true, law: false },
             { name: "محمد سعيد عبد المنصف شعوط", it: true, law: false },
             { name: "رحاب وائل ابو بكر", it: true, law: false },
@@ -398,7 +397,7 @@
             { name: "سارة ايمن علي احمد", it: true, law: false },
             { name: "سما سمير يسري", it: true, law: false },
             { name: "سدين ماهر فوزي عبد العزيز", it: true, law: false },
-            { name: "شهد عبد الحليم سالم", it: true, law: false },
+            { name: "شهد عبد الحليم سالم", it: true, law: true },
             { name: "صفوه حسام الغباري", it: false, law: true },
             { name: "صبري الجميل صبري", it: true, law: true },
             { name: "صابرين مظهر", it: true, law: false },
@@ -427,6 +426,7 @@
             { name: "محمد احمد عبد المجيد يحي", it: true, law: false },
             { name: "محمد احمد محمد السيد عثمان", it: true, law: false },
             { name: "احمد اشرف زهني بلال", it: true, law: false },
+            { name: "احمد حامد محمود عبدالله", it: true, law: true },
             { name: "احمد محمد عاطف عبده ابراهيم", it: true, law: false },
             { name: "هشام احمد عبد المطلب محمد المصري", it: true, law: false },
             { name: "محمد اسماعيل ابراهيم", it: true, law: false },
@@ -450,7 +450,7 @@
             { name: "مريم مصطفي احمد", it: true, law: false },
             { name: "سندس علاء", it: true, law: false },
             { name: "توفيق محمد توفيق", it: true, law: false },
-            { name: "مريم علي عبد الفتاح", it: true, law: false },
+            { name: "مريم علي عبد الفتاح", it: true, law: true },
             { name: "مريم شعبان عبدالكريم", it: true, law: false },
             { name: "عبد الوهاب سعد عكاشة", it: true, law: false },
             { name: "مريم حمدي عبدالحميد", it: true, law: false },
@@ -465,7 +465,30 @@
             { name: "يوسف عمرو علي", it: true, law: false },
             { name: "زياد سعد ابو مصطفي", it: true, law: false },
             { name: "موسي بكر موسي التلباني", it: true, law: false },
-            { name: "يسرا سمير", it: true, law: false }
+            { name: "يسرا سمير", it: true, law: false },
+
+            
+            { name: "حامد شريف مطر", it: true, law: false },
+            { name: "ايه ظهران سيد احمد", it: true, law: false },
+            { name: "علا حفظ الله عثمان", it: true, law: true },
+            { name: "يوسف ابراهيم ابو العز", it: true, law: true },
+            { name: "حنين احمد السيد الشهاوي", it: true, law: false },
+            { name: "دعاء عبد الستار صابر", it: true, law: false },
+            { name: "محمد وائل محمد عبد الحي", it: true, law: false },
+            { name: "مصطفي بلال عبد المولي", it: true, law: false },
+            { name: "وليد احمد عبد الصمد", it: true, law: false },
+            { name: "يوسف رفيق عبد الحليم", it: true, law: false },
+            { name: "احمد ممدوح احمد محمد", it: true, law: false },
+            { name: "سامي وليد احمد عبد الخالق", it: true, law: false },
+            { name: "ابراهيم ابراهيم فاضل علي شوشه", it: true, law: false },
+            { name: "محمد هيثم فتحي الهمشري", it: true, law: false },
+            { name: "كريم عبد الحي محمد عماره", it: true, law: false },
+            { name: "عمر عبد الفتاح عبد المحسن محمد", it: true, law: false },
+            { name: "نيجار جمعه محمد جبر", it: true, law: false },
+            { name: "خالد مجدي عطيه", it: true, law: false },
+            { name: "عبد الرحمن كامل عبد المقصود", it: true, law: false },
+            { name: "حمادة هلال ضافر", it: true, law: false },
+            { name: "سعيد عوض سعيد", it: true, law: false }
         ];
 
         students.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
